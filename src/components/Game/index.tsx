@@ -19,10 +19,12 @@ export default function Game(props: IProps) {
   return (
     <div className={styles.container}>
       <h1>CONNECT FOUR</h1>
-      <Board />
-      <div className={styles.players}>
-        <PlayerCard player={playerOne} />
-        <PlayerCard player={playerTwo} />
+      <div className={styles.content}>
+        <Board />
+        <div className={styles.players}>
+          <PlayerCard player={playerOne} />
+          <PlayerCard player={playerTwo} />
+        </div>
       </div>
     </div>
   );
