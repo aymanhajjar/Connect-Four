@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "./landing.module.scss";
+import styles from "./Landing.module.scss";
 import GameInitializer from "../GameInitializer";
 import Game from "../Game";
 
@@ -9,7 +9,7 @@ export default function Landing() {
   const [playerTwo, setPlayerTwo] = useState({ name: "", color: "" });
 
   return (
-    <>
+    <div className={styles.mainContainer}>
       <Game
         restart={() => setReady(false)}
         playerOne={playerOne}
@@ -22,6 +22,6 @@ export default function Landing() {
           playerTwo={setPlayerTwo}
         />
       )}
-    </>
+    </div>
   );
 }

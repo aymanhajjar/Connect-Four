@@ -1,3 +1,5 @@
+import Board from "../Board";
+import PlayerCard from "../PlayerCard";
 import styles from "./Game.module.scss";
 
 interface Player {
@@ -12,9 +14,16 @@ interface IProps {
 }
 
 export default function Game(props: IProps) {
+  const { playerOne, playerTwo } = props;
+
   return (
     <div className={styles.container}>
-      <h1>Connect Four</h1>
+      <h1>CONNECT FOUR</h1>
+      <Board />
+      <div className={styles.players}>
+        <PlayerCard player={playerOne} />
+        <PlayerCard player={playerTwo} />
+      </div>
     </div>
   );
 }
