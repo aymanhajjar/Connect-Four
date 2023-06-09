@@ -26,9 +26,8 @@ export default function Board(props: IProps) {
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
   ]);
-  const [playerOneCount, setPlayerOneCount] = useState(0);
-  const [playerTwoCount, setPlayerTwoCount] = useState(0);
   const [highlighted, setHighlighted] = useState(-1);
+  const [gameEnded, setGameEnded] = useState(false);
 
   const getColor = (colIndex: number, value: number, slotIndex: number) => {
     if (slotIndex == slots[colIndex].lastIndexOf(0)) {
@@ -66,6 +65,7 @@ export default function Board(props: IProps) {
         slots[colIndex][slotIndex + 3] == playerTurn
       ) {
         playerWins(playerTurn);
+        setGameEnded(true);
       }
     }
   };
@@ -95,6 +95,7 @@ export default function Board(props: IProps) {
           slots[colIndex + 3][slotIndex + 3] == playerTurn)
       ) {
         playerWins(playerTurn);
+        setGameEnded(true);
       }
     }
     if (colIndex >= 3) {
@@ -109,12 +110,13 @@ export default function Board(props: IProps) {
           slots[colIndex - 3][slotIndex + 3] == playerTurn)
       ) {
         playerWins(playerTurn);
+        setGameEnded(true);
       }
     }
   };
 
   return (
-    <div className={styles.container}>
+    <div className={gameEnded ? styles.containerEnd : styles.container}>
       {slots.map((col, colIndex) => (
         <div
           key={colIndex}

@@ -27,3 +27,28 @@
   flex-direction: column;
   gap: 1rem;
 }
+
+.restartBtn {
+  background-color: #b1c841;
+  border-radius: 50%;
+  width: 8rem;
+  height: 8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  margin: auto;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.restartBtn:hover {
+  transition: all 0.3s;
+  transform: scale(1.1);
+}
+
+.playerWon {
+  margin: auto;
+  font-size: 4rem;
+}

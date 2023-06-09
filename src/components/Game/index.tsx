@@ -33,7 +33,17 @@ export default function Game(props: IProps) {
         <div className={styles.players}>
           <PlayerCard player={playerOne} active={playerTurn == 1} />
           <PlayerCard player={playerTwo} active={playerTurn == 2} />
-          {playerWon > 0 && <span>{playerWon} Wins!!</span>}
+          {playerWon > 0 && (
+            <span
+              className={styles.playerWon}
+              style={{
+                color: playerWon == 1 ? playerOne.color : playerTwo.color,
+              }}
+            >
+              {playerWon == 1 ? playerOne.name : playerTwo.name} Wins!!
+            </span>
+          )}
+          <span className={styles.restartBtn}>Restart</span>
         </div>
       </div>
     </div>
