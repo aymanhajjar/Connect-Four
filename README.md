@@ -8,12 +8,14 @@ ReactJS with TypeScript
 
 ### Screenshots
 
-| ---| ---| ---|
+| #1                                   | #2                                   | #3                                   |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | ![Demo 1](./public/readme/demo1.jpg) | ![Demo 2](./public/readme/demo2.jpg) | ![Demo 3](./public/readme/demo3.jpg) |
 
 ### Animated
 
-| ---|
+| Demo                              |
+| --------------------------------- |
 | ![Demo](./public/readme/demo.gif) |
 
 ### How To Run
