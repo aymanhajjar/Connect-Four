@@ -43,12 +43,14 @@ export default function Board(props: IProps) {
 
   const handleClick = (colIndex: number) => {
     const slotIndex = slots[colIndex].lastIndexOf(0);
-    playerTurn == 1
-      ? (slots[colIndex][slotIndex] = 1)
-      : (slots[colIndex][slotIndex] = 2);
-    checkWin(colIndex, slotIndex);
-    changeTurns();
-    setHighlighted(-1);
+    if (slotIndex != -1) {
+      playerTurn == 1
+        ? (slots[colIndex][slotIndex] = 1)
+        : (slots[colIndex][slotIndex] = 2);
+      checkWin(colIndex, slotIndex);
+      changeTurns();
+      setHighlighted(-1);
+    }
   };
 
   const checkWin = (colIndex: number, slotIndex: number) => {
