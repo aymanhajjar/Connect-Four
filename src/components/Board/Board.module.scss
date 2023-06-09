@@ -1,8 +1,42 @@
 .container {
-  background-color: gray;
+  background-color: #eff1ed;
   padding: 1rem;
   box-sizing: border-box;
   height: 100%;
   width: 70%;
+  display: flex;
+  justify-content: space-between;
   border-radius: 1rem;
 }
+
+.slot {
+  height: 15%;
+  background-color: #36454f;
+  border-radius: 50%;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+// .slot:hover {
+//   background-color: white;
+//   transition: all 0.2s;
+//   box-shadow: 0 0 10px rgb(110, 110, 110);
+// }
+
+.column {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+  width: 14%;
+  transition: all 0.2s;
+  border-radius: 0.5rem;
+  justify-content: space-between;
+}
+
+// .column:hover {
+//   background-color: rgb(220, 220, 220);
+//   transition: all 0.2s;
+//   cursor: pointer;
+// }

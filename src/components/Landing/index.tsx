@@ -18,8 +18,8 @@ export default function Landing() {
       {!ready && (
         <GameInitializer
           isReady={() => setReady(true)}
-          playerOne={setPlayerOne}
-          playerTwo={setPlayerTwo}
+          setPlayerOne={setPlayerOne}
+          setPlayerTwo={setPlayerTwo}
         />
       )}
     </div>

@@ -5,8 +5,17 @@ interface IProps {
     name: string;
     color: string;
   };
+  active: boolean;
 }
 
 export default function PlayerCard(props: IProps) {
-  return <div className={styles.container}>Player</div>;
+  const { player, active } = props;
+  return (
+    <div
+      className={styles.container}
+      style={{ backgroundColor: active ? player.color : "rgba(0,0,0,0.1)" }}
+    >
+      <h2>{player.name}</h2>
+    </div>
+  );
 }
