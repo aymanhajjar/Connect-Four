@@ -16,7 +16,7 @@ interface IProps {
 
 export default function Game(props: IProps) {
   const { playerOne, playerTwo } = props;
-  const [player, setPlayer] = useState(1);
+  const [playerTurn, setPlayerTurn] = useState(1);
 
   return (
     <div className={styles.container}>
@@ -25,10 +25,12 @@ export default function Game(props: IProps) {
         <Board
           playerOneColor={playerOne.color}
           playerTwoColor={playerTwo.color}
+          playerTurn={playerTurn}
+          changeTurns={() => setPlayerTurn(playerTurn == 1 ? 2 : 1)}
         />
         <div className={styles.players}>
-          <PlayerCard player={playerOne} active={player == 1} />
-          <PlayerCard player={playerTwo} active={player == 2} />
+          <PlayerCard player={playerOne} active={playerTurn == 1} />
+          <PlayerCard player={playerTwo} active={playerTurn == 2} />
         </div>
       </div>
     </div>

@@ -4,17 +4,19 @@ import styles from "./Board.module.scss";
 interface IProps {
   playerOneColor: string;
   playerTwoColor: string;
+  playerTurn: number;
+  changeTurns: () => void;
 }
 
 export default function Board(props: IProps) {
-  const { playerOneColor, playerTwoColor } = props;
+  const { playerOneColor, playerTwoColor, playerTurn, changeTurns } = props;
   const [slots, setSlots] = useState([
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 2, 1],
-    [0, 0, 0, 1, 2, 2],
-    [0, 0, 0, 0, 1, 1],
-    [0, 0, 0, 0, 0, 1],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
   ]);
   const [highlighted, setHighlighted] = useState(-1);
@@ -29,9 +31,19 @@ export default function Board(props: IProps) {
     } else if (value == 2) {
       return playerTwoColor;
     }
-    // colIndex == highlighted && value == 0 ? "white" : "";
-    // return "white";
   };
+
+  const handleClick = (colIndex: number) => {
+    const index = slots[colIndex].lastIndexOf(0);
+    playerTurn == 1
+      ? (slots[colIndex][index] = 1)
+      : (slots[colIndex][index] = 2);
+    checkWin();
+    changeTurns();
+    setHighlighted(-1);
+  };
+
+  const checkWin = () => {};
 
   return (
     <div className={styles.container}>
@@ -54,11 +66,8 @@ export default function Board(props: IProps) {
                     : value == 2
                     ? playerTwoColor
                     : "#36454f",
-                boxShadow:
-                  highlighted == colIndex && slotIndex == col.lastIndexOf(0)
-                    ? "0px 0px 10px gray"
-                    : "none",
               }}
+              onClick={() => handleClick(colIndex)}
             ></div>
           ))}
         </div>
