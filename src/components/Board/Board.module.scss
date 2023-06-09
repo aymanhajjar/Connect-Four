@@ -2,11 +2,12 @@
   background-color: #eff1ed;
   padding: 1rem;
   box-sizing: border-box;
-  height: 100%;
-  width: 70%;
+  //   height: 100%;
+  //   width: 70%;
   display: flex;
-  justify-content: space-between;
+  //   justify-content: space-between;
   border-radius: 1rem;
+  gap: 1rem;
 }
 
 .containerEnd {
@@ -16,7 +17,9 @@
 }
 
 .slot {
-  height: 15%;
+  height: 6vw;
+  width: 6vw;
+  aspect-ratio: 1/1;
   background-color: #36454f;
   border-radius: 50%;
   transition: all 0.2s;
@@ -30,7 +33,8 @@
   height: 100%;
   padding: 1rem;
   box-sizing: border-box;
-  width: 14%;
+  gap: 1rem;
+  //   width: 14%;
   transition: all 0.2s;
   border-radius: 0.5rem;
   cursor: pointer;
