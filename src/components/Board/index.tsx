@@ -6,10 +6,17 @@ interface IProps {
   playerTwoColor: string;
   playerTurn: number;
   changeTurns: () => void;
+  playerWins: (player: number) => void;
 }
 
 export default function Board(props: IProps) {
-  const { playerOneColor, playerTwoColor, playerTurn, changeTurns } = props;
+  const {
+    playerOneColor,
+    playerTwoColor,
+    playerTurn,
+    changeTurns,
+    playerWins,
+  } = props;
   const [slots, setSlots] = useState([
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
@@ -19,6 +26,8 @@ export default function Board(props: IProps) {
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
   ]);
+  const [playerOneCount, setPlayerOneCount] = useState(0);
+  const [playerTwoCount, setPlayerTwoCount] = useState(0);
   const [highlighted, setHighlighted] = useState(-1);
 
   const getColor = (colIndex: number, value: number, slotIndex: number) => {
@@ -34,16 +43,75 @@ export default function Board(props: IProps) {
   };
 
   const handleClick = (colIndex: number) => {
-    const index = slots[colIndex].lastIndexOf(0);
+    const slotIndex = slots[colIndex].lastIndexOf(0);
     playerTurn == 1
-      ? (slots[colIndex][index] = 1)
-      : (slots[colIndex][index] = 2);
-    checkWin();
+      ? (slots[colIndex][slotIndex] = 1)
+      : (slots[colIndex][slotIndex] = 2);
+    checkWin(colIndex, slotIndex);
     changeTurns();
     setHighlighted(-1);
   };
 
-  const checkWin = () => {};
+  const checkWin = (colIndex: number, slotIndex: number) => {
+    checkVertical(colIndex, slotIndex);
+    checkHorizontal(colIndex, slotIndex);
+    checkDiagonal(colIndex, slotIndex);
+  };
+
+  const checkVertical = (colIndex: number, slotIndex: number) => {
+    if (slotIndex <= 2) {
+      if (
+        slots[colIndex][slotIndex + 1] == playerTurn &&
+        slots[colIndex][slotIndex + 2] == playerTurn &&
+        slots[colIndex][slotIndex + 3] == playerTurn
+      ) {
+        playerWins(playerTurn);
+      }
+    }
+  };
+  const checkHorizontal = (colIndex: number, slotIndex: number) => {
+    var count = 0;
+    colIndex = 0;
+    while (colIndex < slots.length) {
+      if (slots[colIndex][slotIndex] == playerTurn) {
+        count++;
+      } else {
+        count = 0;
+      }
+      if (count == 4) playerWins(playerTurn);
+      colIndex++;
+    }
+  };
+  const checkDiagonal = (colIndex: number, slotIndex: number) => {
+    if (colIndex <= 3) {
+      if (
+        (slotIndex >= 3 &&
+          slots[colIndex + 1][slotIndex - 1] == playerTurn &&
+          slots[colIndex + 2][slotIndex - 2] == playerTurn &&
+          slots[colIndex + 3][slotIndex - 3] == playerTurn) ||
+        (slotIndex <= 3 &&
+          slots[colIndex + 1][slotIndex + 1] == playerTurn &&
+          slots[colIndex + 2][slotIndex + 2] == playerTurn &&
+          slots[colIndex + 3][slotIndex + 3] == playerTurn)
+      ) {
+        playerWins(playerTurn);
+      }
+    }
+    if (colIndex >= 3) {
+      if (
+        (slotIndex >= 3 &&
+          slots[colIndex - 1][slotIndex - 1] == playerTurn &&
+          slots[colIndex - 2][slotIndex - 2] == playerTurn &&
+          slots[colIndex - 3][slotIndex - 3] == playerTurn) ||
+        (slotIndex <= 3 &&
+          slots[colIndex - 1][slotIndex + 1] == playerTurn &&
+          slots[colIndex - 2][slotIndex + 2] == playerTurn &&
+          slots[colIndex - 3][slotIndex + 3] == playerTurn)
+      ) {
+        playerWins(playerTurn);
+      }
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -52,6 +120,7 @@ export default function Board(props: IProps) {
           key={colIndex}
           className={styles.column}
           onMouseOver={() => setHighlighted(colIndex)}
+          onClick={() => handleClick(colIndex)}
         >
           {col.map((value, slotIndex) => (
             <div
@@ -67,7 +136,6 @@ export default function Board(props: IProps) {
                     ? playerTwoColor
                     : "#36454f",
               }}
-              onClick={() => handleClick(colIndex)}
             ></div>
           ))}
         </div>
