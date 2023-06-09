@@ -31,7 +31,7 @@ export default function Board(props: IProps) {
 
   const getColor = (colIndex: number, value: number, slotIndex: number) => {
     if (slotIndex == slots[colIndex].lastIndexOf(0)) {
-      return "white";
+      return playerTurn == 1 ? playerOneColor : playerTwoColor;
     } else if (value == 0) {
       return "#888888";
     } else if (value == 1) {
@@ -78,7 +78,10 @@ export default function Board(props: IProps) {
       } else {
         count = 0;
       }
-      if (count == 4) playerWins(playerTurn);
+      if (count == 4) {
+        playerWins(playerTurn);
+        setGameEnded(true);
+      }
       colIndex++;
     }
   };

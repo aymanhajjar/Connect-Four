@@ -43,7 +43,12 @@ export default function Game(props: IProps) {
               {playerWon == 1 ? playerOne.name : playerTwo.name} Wins!!
             </span>
           )}
-          <span className={styles.restartBtn}>Restart</span>
+          <span
+            className={styles.restartBtn}
+            onClick={() => window.location.reload()}
+          >
+            Restart
+          </span>
         </div>
       </div>
     </div>

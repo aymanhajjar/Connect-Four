@@ -20,15 +20,9 @@
   background-color: #36454f;
   border-radius: 50%;
   transition: all 0.2s;
-  box-shadow: 0 0 10px gray;
+  box-shadow: 0 0 8px rgb(52, 52, 52);
   cursor: pointer;
 }
-
-// .slot:hover {
-//   background-color: white;
-//   transition: all 0.2s;
-//   box-shadow: 0 0 10px rgb(110, 110, 110);
-// }
 
 .column {
   display: flex;
@@ -42,9 +36,3 @@
   cursor: pointer;
   justify-content: space-between;
 }
-
-// .column:hover {
-//   background-color: rgb(220, 220, 220);
-//   transition: all 0.2s;
-//   cursor: pointer;
-// }

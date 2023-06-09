@@ -25,6 +25,10 @@ export default function PlayerForm(props: IProps) {
     setPlayerColor(new_colors[0]);
   }, [disabledColor]);
 
+  useEffect(() => {
+    setPlayerName("");
+  }, [number]);
+
   const handleSubmit = () => {
     setPlayer({
       name: playerName
@@ -37,6 +41,12 @@ export default function PlayerForm(props: IProps) {
     setSelectedColor(playerColor);
   };
 
+  const checkSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  };
+
   return (
     <div className={styles.container}>
       {number === 1 ? <h2>Player One</h2> : <h2>Player Two</h2>}
@@ -45,6 +55,7 @@ export default function PlayerForm(props: IProps) {
         <input
           value={playerName}
           onChange={(e) => setPlayerName(e.target.value)}
+          onKeyDown={checkSubmit}
         />
       </div>
       <div className={styles.formGroup}>
