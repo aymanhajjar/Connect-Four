@@ -16,8 +16,8 @@ interface IProps {
 
 export default function Game(props: IProps) {
   const { playerOne, playerTwo } = props;
-  const [playerTurn, setPlayerTurn] = useState(1);
-  const [playerWon, setPlayerWon] = useState(0);
+  const [playerTurn, setPlayerTurn] = useState<number>(1);
+  const [playerWon, setPlayerWon] = useState<number>(0);
 
   return (
     <div className={styles.container}>

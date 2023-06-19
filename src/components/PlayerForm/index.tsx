@@ -16,8 +16,8 @@ interface IProps {
 
 export default function PlayerForm(props: IProps) {
   const { number, setPlayer, disabledColor, setSelectedColor } = props;
-  const [playerName, setPlayerName] = useState("");
-  const [playerColor, setPlayerColor] = useState("");
+  const [playerName, setPlayerName] = useState<string>("");
+  const [playerColor, setPlayerColor] = useState<string>("");
   const colors = ["#BCBD8B", "#C1666B", "#1789FC", "#ECCBD9"];
 
   useEffect(() => {

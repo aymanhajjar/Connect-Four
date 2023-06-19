@@ -1,0 +1,18 @@
+.slot {
+  height: 6vw;
+  width: 6vw;
+  background-color: #36454f;
+  border-radius: 50%;
+  transition: all 0.2s;
+  box-shadow: 0 0 8px rgb(52, 52, 52);
+  cursor: pointer;
+  position: relative;
+}
+
+.check {
+  width: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

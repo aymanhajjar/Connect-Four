@@ -15,8 +15,8 @@ interface IProps {
 
 export default function GameInitializer(props: IProps) {
   const { setPlayerOne, setPlayerTwo, isReady } = props;
-  const [selectedColor, setSelectedColor] = useState("");
-  const [playerNumber, setPlayerNumber] = useState(1);
+  const [selectedColor, setSelectedColor] = useState<string>("");
+  const [playerNumber, setPlayerNumber] = useState<number>(1);
 
   const handlePlayer = (number: number, info: Player) => {
     number === 1 ? setPlayerOne(info) : setPlayerTwo(info);

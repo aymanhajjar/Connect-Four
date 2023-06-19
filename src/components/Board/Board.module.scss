@@ -21,6 +21,7 @@
   transition: all 0.2s;
   box-shadow: 0 0 8px rgb(52, 52, 52);
   cursor: pointer;
+  position: relative;
 }
 
 .column {
@@ -34,4 +35,12 @@
   border-radius: 0.5rem;
   cursor: pointer;
   justify-content: space-between;
+}
+
+.check {
+  width: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
