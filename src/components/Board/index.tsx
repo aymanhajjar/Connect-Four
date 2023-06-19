@@ -73,20 +73,26 @@ export default function Board(props: IProps) {
   };
   const checkHorizontal = (colIndex: number, slotIndex: number) => {
     var count = 0;
-    colIndex = 0;
-    while (colIndex < slots.length) {
-      if (slots[colIndex][slotIndex] == playerTurn) {
+    for (let i = colIndex + 1; i < slots.length; i++) {
+      if (slots[i][slotIndex] == playerTurn) {
         count++;
       } else {
-        count = 0;
+        break;
       }
-      if (count == 4) {
-        playerWins(playerTurn);
-        setGameEnded(true);
+    }
+    for (let i = colIndex; i >= 0; i--) {
+      if (slots[i][slotIndex] == playerTurn) {
+        count++;
+      } else {
+        break;
       }
-      colIndex++;
+    }
+    if (count >= 4) {
+      playerWins(playerTurn);
+      setGameEnded(true);
     }
   };
+
   const checkDiagonal = (colIndex: number, slotIndex: number) => {
     if (colIndex <= 3) {
       if (
