@@ -29,7 +29,7 @@ export default function Board(props: IProps) {
     currentGameIndex,
     setCurrentIndex,
   } = props;
-  const [slots, setSlots] = useState([
+  const initialSlots = [
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
@@ -37,9 +37,21 @@ export default function Board(props: IProps) {
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
-  ]);
+  ];
+  const [slots, setSlots] = useState(initialSlots);
   const [gameStates, setGameStates] = useState<Array<gameState>>([
-    { slots: slots, playerTurn: playerTurn },
+    {
+      slots: [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+      ],
+      playerTurn: 1,
+    },
   ]);
   const [highlighted, setHighlighted] = useState<number>(-1);
   const [gameEnded, setGameEnded] = useState<boolean>(false);
@@ -47,9 +59,11 @@ export default function Board(props: IProps) {
 
   useEffect(() => {
     console.log(currentGameIndex, gameStates);
-    if (currentGameIndex < gameStates.length - 1) {
+    if (currentGameIndex < gameStates.length - 1 && currentGameIndex > -1) {
       setSlots(gameStates[currentGameIndex].slots);
       changeTurns();
+      console.log("undo", currentGameIndex);
+      console.log(gameStates[currentGameIndex].slots);
     }
   }, [currentGameIndex]);
 
@@ -96,10 +110,13 @@ export default function Board(props: IProps) {
       changeTurns();
       setHighlighted(-1);
       const currentGameState = {
-        slots: slots,
+        slots: slots.map((column) => [...column]),
         playerTurn: playerTurn,
       };
-      setGameStates([...gameStates, currentGameState]);
+      const newGameStates = [...gameStates];
+      newGameStates[currentGameIndex + 1] = currentGameState;
+      setGameStates(newGameStates);
+      console.log("stattess: ", [...gameStates, currentGameState]);
       setCurrentIndex(currentGameIndex + 1);
     }
   };

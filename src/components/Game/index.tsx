@@ -22,7 +22,9 @@ export default function Game(props: IProps) {
   const [currentGameIndex, setCurrentGameIndex] = useState<number>(0);
 
   const handleUndo = () => {
-    setCurrentGameIndex(currentGameIndex - 1);
+    if (currentGameIndex > 0) {
+      setCurrentGameIndex(currentGameIndex - 1);
+    }
   };
 
   return (
