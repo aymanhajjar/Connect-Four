@@ -58,12 +58,17 @@ export default function Board(props: IProps) {
   const [winningSlots, setWinningSlots] = useState<string[]>([]);
 
   useEffect(() => {
-    console.log(currentGameIndex, gameStates);
     if (currentGameIndex < gameStates.length - 1 && currentGameIndex > -1) {
-      setSlots(gameStates[currentGameIndex].slots);
+      if (currentGameIndex === 0) {
+        setGameStates((prevGameStates) => prevGameStates.slice(0, -1));
+        setSlots(initialSlots);
+      } else {
+        setSlots(gameStates[currentGameIndex].slots);
+        if (gameStates.length > 0) {
+          setGameStates((prevGameStates) => prevGameStates.slice(0, -1));
+        }
+      }
       changeTurns();
-      console.log("undo", currentGameIndex);
-      console.log(gameStates[currentGameIndex].slots);
     }
   }, [currentGameIndex]);
 
@@ -113,10 +118,9 @@ export default function Board(props: IProps) {
         slots: slots.map((column) => [...column]),
         playerTurn: playerTurn,
       };
-      const newGameStates = [...gameStates];
-      newGameStates[currentGameIndex + 1] = currentGameState;
-      setGameStates(newGameStates);
-      console.log("stattess: ", [...gameStates, currentGameState]);
+      const newStates = [...gameStates];
+      newStates.push(currentGameState);
+      setGameStates(newStates);
       setCurrentIndex(currentGameIndex + 1);
     }
   };
