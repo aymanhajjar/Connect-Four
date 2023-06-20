@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Board.module.scss";
 import Slot from "../Slot";
 
@@ -8,6 +8,14 @@ interface IProps {
   playerTurn: number;
   changeTurns: () => void;
   playerWins: (player: number) => void;
+  setBoardFull: () => void;
+  currentGameIndex: number;
+  setCurrentIndex: (index: number) => void;
+}
+
+interface gameState {
+  slots: Array<Array<number>>;
+  playerTurn: number;
 }
 
 export default function Board(props: IProps) {
@@ -17,6 +25,9 @@ export default function Board(props: IProps) {
     playerTurn,
     changeTurns,
     playerWins,
+    setBoardFull,
+    currentGameIndex,
+    setCurrentIndex,
   } = props;
   const [slots, setSlots] = useState([
     [0, 0, 0, 0, 0, 0],
@@ -27,9 +38,34 @@ export default function Board(props: IProps) {
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
   ]);
+  const [gameStates, setGameStates] = useState<Array<gameState>>([
+    { slots: slots, playerTurn: playerTurn },
+  ]);
   const [highlighted, setHighlighted] = useState<number>(-1);
   const [gameEnded, setGameEnded] = useState<boolean>(false);
   const [winningSlots, setWinningSlots] = useState<string[]>([]);
+
+  useEffect(() => {
+    console.log(currentGameIndex, gameStates);
+    if (currentGameIndex < gameStates.length - 1) {
+      setSlots(gameStates[currentGameIndex].slots);
+      changeTurns();
+    }
+  }, [currentGameIndex]);
+
+  useEffect(() => {
+    var full = true;
+    if (!gameEnded && full) {
+      for (let i = 0; i < slots.length; i++) {
+        if (slots[i].lastIndexOf(0) > -1) {
+          full = false;
+        }
+      }
+      if (full === true) {
+        setBoardFull();
+      }
+    }
+  }, [playerTurn]);
 
   const getColor = (colIndex: number, value: number, slotIndex: number) => {
     if (highlighted === colIndex) {
@@ -59,6 +95,12 @@ export default function Board(props: IProps) {
       checkWin(colIndex, slotIndex);
       changeTurns();
       setHighlighted(-1);
+      const currentGameState = {
+        slots: slots,
+        playerTurn: playerTurn,
+      };
+      setGameStates([...gameStates, currentGameState]);
+      setCurrentIndex(currentGameIndex + 1);
     }
   };
 
@@ -135,6 +177,7 @@ export default function Board(props: IProps) {
       }
       currentSlot--;
     }
+
     if (count >= 4) {
       playerWins(playerTurn);
       setGameEnded(true);

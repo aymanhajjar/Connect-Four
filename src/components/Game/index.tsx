@@ -18,6 +18,12 @@ export default function Game(props: IProps) {
   const { playerOne, playerTwo } = props;
   const [playerTurn, setPlayerTurn] = useState<number>(1);
   const [playerWon, setPlayerWon] = useState<number>(0);
+  const [boardFull, setBoardFull] = useState<boolean>(false);
+  const [currentGameIndex, setCurrentGameIndex] = useState<number>(0);
+
+  const handleUndo = () => {
+    setCurrentGameIndex(currentGameIndex - 1);
+  };
 
   return (
     <div className={styles.container}>
@@ -29,6 +35,9 @@ export default function Game(props: IProps) {
           playerTurn={playerTurn}
           changeTurns={() => setPlayerTurn(playerTurn == 1 ? 2 : 1)}
           playerWins={(player) => setPlayerWon(player)}
+          setBoardFull={() => setBoardFull(true)}
+          currentGameIndex={currentGameIndex}
+          setCurrentIndex={(index) => setCurrentGameIndex(index)}
         />
         <div className={styles.players}>
           <PlayerCard player={playerOne} active={playerTurn == 1} />
@@ -43,6 +52,10 @@ export default function Game(props: IProps) {
               {playerWon == 1 ? playerOne.name : playerTwo.name} Wins!!
             </span>
           )}
+          {boardFull && <span>The Board Is Full, Try Again.</span>}
+          <span className={styles.restartBtn} onClick={handleUndo}>
+            Undo
+          </span>
           <span
             className={styles.restartBtn}
             onClick={() => window.location.reload()}
