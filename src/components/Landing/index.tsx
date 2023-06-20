@@ -9,7 +9,7 @@ interface Player {
 }
 
 export default function Landing() {
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState<boolean>(false);
   const [playerOne, setPlayerOne] = useState<Player>({ name: "", color: "" });
   const [playerTwo, setPlayerTwo] = useState<Player>({ name: "", color: "" });
 

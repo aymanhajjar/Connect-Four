@@ -113,65 +113,60 @@ export default function Board(props: IProps) {
   };
 
   const checkDiagonal = (colIndex: number, slotIndex: number) => {
-    if (colIndex <= 3) {
-      if (
-        (slotIndex >= 3 &&
-          slots[colIndex + 1][slotIndex - 1] === playerTurn &&
-          slots[colIndex + 2][slotIndex - 2] === playerTurn &&
-          slots[colIndex + 3][slotIndex - 3] === playerTurn) ||
-        (slotIndex <= 3 &&
-          slots[colIndex + 1][slotIndex + 1] === playerTurn &&
-          slots[colIndex + 2][slotIndex + 2] === playerTurn &&
-          slots[colIndex + 3][slotIndex + 3] === playerTurn)
-      ) {
-        playerWins(playerTurn);
-        setGameEnded(true);
-        if (slotIndex <= 3) {
-          setWinningSlots([
-            `${colIndex}, ${slotIndex}`,
-            `${colIndex + 1}, ${slotIndex + 1}`,
-            `${colIndex + 2}, ${slotIndex + 2}`,
-            `${colIndex + 3}, ${slotIndex + 3}`,
-          ]);
+    var count = 1;
+    var winningArray = [`${colIndex}, ${slotIndex}`];
+    var currentSlot = slotIndex;
+    for (let i = colIndex + 1; i < slots.length; i++) {
+      if (slots[i][currentSlot + 1] === playerTurn && count < 4) {
+        count++;
+        winningArray.push(`${i}, ${currentSlot + 1}`);
+      } else {
+        break;
+      }
+      currentSlot++;
+    }
+    currentSlot = slotIndex;
+    for (let i = colIndex - 1; i >= 0; i--) {
+      if (slots[i][currentSlot - 1] === playerTurn && count < 4) {
+        count++;
+        winningArray.push(`${i}, ${currentSlot - 1}`);
+      } else {
+        break;
+      }
+      currentSlot--;
+    }
+    if (count >= 4) {
+      playerWins(playerTurn);
+      setGameEnded(true);
+      setWinningSlots(winningArray);
+    } else {
+      var count = 1;
+      winningArray = [`${colIndex}, ${slotIndex}`];
+      currentSlot = slotIndex;
+      for (let i = colIndex + 1; i < slots.length; i++) {
+        if (slots[i][currentSlot - 1] === playerTurn && count < 4) {
+          count++;
+          winningArray.push(`${i}, ${currentSlot - 1}`);
         } else {
-          setWinningSlots([
-            `${colIndex}, ${slotIndex}`,
-            `${colIndex + 1}, ${slotIndex - 1}`,
-            `${colIndex + 2}, ${slotIndex - 2}`,
-            `${colIndex + 3}, ${slotIndex - 3}`,
-          ]);
+          break;
         }
+        currentSlot--;
+      }
+      currentSlot = slotIndex;
+      for (let i = colIndex - 1; i >= 0; i--) {
+        if (slots[i][currentSlot + 1] === playerTurn && count < 4) {
+          count++;
+          winningArray.push(`${i}, ${currentSlot + 1}`);
+        } else {
+          break;
+        }
+        currentSlot++;
       }
     }
-    if (colIndex >= 3) {
-      if (
-        (slotIndex >= 3 &&
-          slots[colIndex - 1][slotIndex - 1] === playerTurn &&
-          slots[colIndex - 2][slotIndex - 2] === playerTurn &&
-          slots[colIndex - 3][slotIndex - 3] === playerTurn) ||
-        (slotIndex <= 3 &&
-          slots[colIndex - 1][slotIndex + 1] === playerTurn &&
-          slots[colIndex - 2][slotIndex + 2] === playerTurn &&
-          slots[colIndex - 3][slotIndex + 3] === playerTurn)
-      ) {
-        playerWins(playerTurn);
-        setGameEnded(true);
-        if (slotIndex <= 3) {
-          setWinningSlots([
-            `${colIndex}, ${slotIndex}`,
-            `${colIndex - 1}, ${slotIndex + 1}`,
-            `${colIndex - 2}, ${slotIndex + 2}`,
-            `${colIndex - 3}, ${slotIndex + 3}`,
-          ]);
-        } else {
-          setWinningSlots([
-            `${colIndex}, ${slotIndex}`,
-            `${colIndex - 1}, ${slotIndex - 1}`,
-            `${colIndex - 2}, ${slotIndex - 2}`,
-            `${colIndex - 3}, ${slotIndex - 3}`,
-          ]);
-        }
-      }
+    if (count >= 4) {
+      playerWins(playerTurn);
+      setGameEnded(true);
+      setWinningSlots(winningArray);
     }
   };
 
